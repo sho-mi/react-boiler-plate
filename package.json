@@ -4,9 +4,14 @@
   "description": "test application",
   "main": "index.js",
   "scripts": {
+    "lint": "node_modules/.bin/esw webpack.*.config.* src",
     "test": "npm run test",
-    "start": "webpack-dev-server --inline --open --hot",
-    "build": "webpack"
+    "start": "npm-run-all --parallel run:server lint:watch",
+    "run:server": "webpack-dev-server --inline --open --hot --progress --colors",
+    "build": "webpack",
+    "lint:watch" : "npm run lint -- --watch",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "rimraf ./dist"
   },
   "keywords": [
     "test",
@@ -23,6 +28,10 @@
     "@babel/preset-env": "^7.5.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^6.0.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-watch": "^5.1.2",
     "html-webpack-plugin": "^3.2.0",
     "npm-run-all": "^4.1.5",
     "webpack": "^4.35.2",
